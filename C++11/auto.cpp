@@ -1,6 +1,9 @@
 #include <iostream>
 #include <list>
-#include <math.h>
+#include <cmath>
+#include <algorithm>
+#include <vector>
+#include <ctime>
 
 void Test(){
     std::list<int> mylist;
@@ -97,12 +100,95 @@ void Test5(){
     std::cout << "rd3 value is " << rd3 << " " << "rd3 address is " << &rd3 << std::endl; 
 }
 
+void PriVector(const std::vector<int> myVector){
+    for(auto &x : myVector){
+        std::cout << x << " ";
+    }
+    std::cout << std::endl;
+}
+
+bool f3(int x) {return (x % 3 == 0);}
+bool f13(int x) {return (x % 13 == 0);}
+
+class NumMod{
+    public:
+        NumMod(int x) : modNum(x){
+
+        }
+    bool operator() (int x){
+        return (x % modNum == 0);
+    }
+    private:
+        int modNum;
+};
+//Lambda expression
+void Test6(){
+    std::srand(unsigned(std::time(0)));
+    std::vector<int> myVector(50, 0);
+    std::generate(myVector.begin(), myVector.end(), std::rand);
+    PriVector(myVector);
+
+    int count3 = std::count_if(myVector.begin(), myVector.end(), f3);
+    std::cout << "count of numbers divisible by 3 : " << count3 << std::endl;
+    int count13 = std::count_if(myVector.begin(), myVector.end(), f13);
+    std::cout <<  "count of numbers divisible by 13 : " << count13 << std::endl;
+
+    count3 = std::count_if(myVector.begin(), myVector.end(), NumMod(3));
+    std::cout << "count of numbers divisible by 3 : " << count3 << std::endl;
+    count13 = std::count_if(myVector.begin(), myVector.end(), NumMod(13));
+    std::cout <<  "count of numbers divisible by 13 : " << count13 << std::endl;
+
+    //use Lambda expression
+    count3 = std::count_if(myVector.begin(), myVector.end(), [](int x){return (x %3 == 0);});
+    std::cout << "count of numbers divisible by 3 : " << count3 << std::endl;
+    count13 = std::count_if(myVector.begin(), myVector.end(), [](int x){return (x %13 == 0);});
+    std::cout <<  "count of numbers divisible by 13 : " << count13 << std::endl;
+}
+
+//Lambda expression
+void Test7(){
+    const int maxNum = 1000;
+    std::srand(unsigned(std::time(0)));
+    std::vector<int> myVector(maxNum, 0);
+    std::generate(myVector.begin(), myVector.end(), std::rand);
+
+    int count3 = 0;
+    int count13 = 0;
+
+    std::for_each(myVector.begin(), myVector.end(), [&](int x) {
+        if(0 == (x % 3)){
+            count3++;
+        }
+        else if(0 == (x % 13)){
+            count13++;
+        }
+    });
+
+    std::cout << "count of numbers divisible by 3 : " << count3 << std::endl;
+    std::cout << "count of numbers divisible by 13 : " << count13 << std::endl;
+
+}
+
+//Lambda expression
+void Test8(){
+    int sumNum = 0;
+    //function pointer
+    auto lam = [](){
+        std::cout << "good news" << std::endl;
+    };
+    std::cout << "sizeof(lam): " << sizeof(lam) << std::endl; 
+    lam();
+}
+
 int main(){
 //    Test();
 //    Test1();
 //    Test2();
 //    Test3();
 //    Test4();
-    Test5();
+//    Test5();
+//    Test6();
+//    Test7();
+    Test8();
     return 0;
 }
