@@ -29,5 +29,4 @@ int main(){
     std::thread t4(std::move(t3)); //t4 is now running f2(). t3 is no longer a thread
     t2.join();
     t4.join();
-    std::cout <<"Final value of n is " << n << "\n";
-}
+    std::cout <<"Final value of n i100";
