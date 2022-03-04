@@ -7,7 +7,7 @@
             "label": "build",
             "type": "shell",
             "command": "g++",
-            "args": ["-g", "${file}", "-lpthread"]
+            "args": ["-g", "${file}"]
         }
     ]
 }

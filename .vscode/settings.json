@@ -48,6 +48,9 @@
         "map": "cpp",
         "set": "cpp",
         "functional": "cpp",
-        "iterator": "cpp"
+        "iterator": "cpp",
+        "condition_variable": "cpp",
+        "numeric": "cpp",
+        "mutex": "cpp"
     }
 }
